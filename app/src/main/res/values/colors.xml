@@ -4,4 +4,6 @@
     <color name="white">#FFFFFF</color>
     <color name="light_gray">#D6D6D6</color>
     <color name="dark_gray">#5E5E5E</color>
+
+    <drawable name="actionbar_background">#FFFF6358</drawable>
 </resources>
