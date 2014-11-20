@@ -7,7 +7,8 @@
     <string name="title_section3">Settings</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="action_example">Example action</string>
+    <string name="action_add_friend">Add Friend</string>
+    <string name="action_add_new_task">New Task</string>
     <string name="action_settings">Settings</string>
 
 </resources>

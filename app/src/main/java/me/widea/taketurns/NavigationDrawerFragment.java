@@ -247,8 +247,13 @@ public class NavigationDrawerFragment extends Fragment {
             return true;
         }
 
-        if (item.getItemId() == R.id.action_example) {
-            Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT).show();
+        if (item.getItemId() == R.id.action_add_friend) {
+            Toast.makeText(getActivity(), "Add Friend.", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        if (item.getItemId() == R.id.action_add_new_task) {
+            Toast.makeText(getActivity(), "New Task.", Toast.LENGTH_SHORT).show();
             return true;
         }
 
