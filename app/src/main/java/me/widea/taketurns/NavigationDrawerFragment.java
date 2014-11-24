@@ -22,6 +22,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import me.widea.taketurns.beans.NavigationDrawerListItemHolder;
+
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
  * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
@@ -58,6 +60,9 @@ public class NavigationDrawerFragment extends Fragment {
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
 
+    // Adapter for navigation drawer
+    NavigationDrawerAdapter navigationDrawerAdapter;
+
     public NavigationDrawerFragment() {
     }
 
@@ -70,10 +75,14 @@ public class NavigationDrawerFragment extends Fragment {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mUserLearnedDrawer = sp.getBoolean(PREF_USER_LEARNED_DRAWER, false);
 
+        // Instantiate navigationDrawerAdapter
+        navigationDrawerAdapter = new NavigationDrawerAdapter(getActivity());
+
         if (savedInstanceState != null) {
             mCurrentSelectedPosition = savedInstanceState.getInt(STATE_SELECTED_POSITION);
             mFromSavedInstanceState = true;
         }
+
 
         // Select either the default item (0) or the last selected item.
         selectItem(mCurrentSelectedPosition);
@@ -97,17 +106,22 @@ public class NavigationDrawerFragment extends Fragment {
                 selectItem(position);
             }
         });
-        mDrawerListView.setAdapter(new ArrayAdapter<String>(
-                getActionBar().getThemedContext(),
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
-                new String[]{
-                        getString(R.string.title_section1),
-                        getString(R.string.title_section2),
-                        getString(R.string.title_section3),
-                }));
+        populateDrawerListItems();
+        mDrawerListView.setAdapter(navigationDrawerAdapter);
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
+    }
+
+    public void populateDrawerListItems() {
+        navigationDrawerAdapter.addItem(new NavigationDrawerListItemHolder("Home", getActivity().getResources().getDrawable(R.drawable.ic_home)));
+        navigationDrawerAdapter.addItem(new NavigationDrawerListItemHolder("Create Task", getActivity().getResources().getDrawable(R.drawable.ic_action_new_task)));
+        navigationDrawerAdapter.addItem(new NavigationDrawerListItemHolder("Settings", getActivity().getResources().getDrawable(R.drawable.ic_settings)));
+        navigationDrawerAdapter.addItem(new NavigationDrawerListItemHolder("All Tasks", getActivity().getResources().getDrawable(R.drawable.ic_all_tasks)));
+        navigationDrawerAdapter.addSectionHeaderItem(new NavigationDrawerListItemHolder("Recent Tasks", null));
+        navigationDrawerAdapter.addItem(new NavigationDrawerListItemHolder("Wash Utensils", getActivity().getResources().getDrawable(R.drawable.ic_action_task)));
+        navigationDrawerAdapter.addItem(new NavigationDrawerListItemHolder("Pay Utility Bill", getActivity().getResources().getDrawable(R.drawable.ic_action_task)));
+        navigationDrawerAdapter.addItem(new NavigationDrawerListItemHolder("Walk-the-Dog", getActivity().getResources().getDrawable(R.drawable.ic_action_task)));
+        navigationDrawerAdapter.addItem(new NavigationDrawerListItemHolder("Buy Groceries", getActivity().getResources().getDrawable(R.drawable.ic_action_task)));
     }
 
     public boolean isDrawerOpen() {
@@ -125,7 +139,7 @@ public class NavigationDrawerFragment extends Fragment {
         mDrawerLayout = drawerLayout;
 
         // set a custom shadow that overlays the main content when the drawer opens
-        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+        // mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         // set up the drawer's list view with items and click listener
 
         ActionBar actionBar = getActionBar();
@@ -192,6 +206,7 @@ public class NavigationDrawerFragment extends Fragment {
         mCurrentSelectedPosition = position;
         if (mDrawerListView != null) {
             mDrawerListView.setItemChecked(position, true);
+            navigationDrawerAdapter.setCurrentSelectedPosition(mCurrentSelectedPosition);
         }
         if (mDrawerLayout != null) {
             mDrawerLayout.closeDrawer(mFragmentContainerView);
