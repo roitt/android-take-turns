@@ -10,8 +10,6 @@ import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 
-import me.widea.taketurns.beans.LoginActivity;
-
 /**
  * Created by Rohit and Viveka on 11/23/14.
  */
@@ -45,6 +43,8 @@ public class SplashActivity extends Activity {
 
                 /** Else show login screen **/
                 Intent loginIntent = new Intent(SplashActivity.this, LoginActivity.class);
+                startActivity(loginIntent);
+                finish();
             }
         }, 3000);
     }
@@ -58,7 +58,7 @@ public class SplashActivity extends Activity {
         rotateAnimation.setFillEnabled(true);
         rotateAnimation.setRepeatCount(Animation.INFINITE);
         rotateAnimation.setStartOffset(700);
-        rotateAnimation.setDuration(500);
+        rotateAnimation.setDuration(300);
         ivTurns.startAnimation(rotateAnimation);
     }
 

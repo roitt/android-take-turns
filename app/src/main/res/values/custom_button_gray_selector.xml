@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="button_default_gray">#FF3D3D3D</color>
+    <color name="button_pressed_gray">#FF363636</color>
+    <color name="button_focused_gray">#FF363636</color>
+</resources>
